@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RealPromo.ApiWeb.Hubs;
+using RealPromo.ApiWeb.Models;
 
 namespace RealPromo.ApiWeb
 {
@@ -24,6 +26,7 @@ namespace RealPromo.ApiWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +42,7 @@ namespace RealPromo.ApiWeb
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -52,6 +56,10 @@ namespace RealPromo.ApiWeb
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseSignalR(cfg => { cfg.MapHub<PromoHub>("/PromoHub"); });
+            
+            //SignalRAppBuilderExtensions.UseSignalR(app, configure => configure.MapHub<PromoHub>("/PromoHub"));
         }
     }
 }
