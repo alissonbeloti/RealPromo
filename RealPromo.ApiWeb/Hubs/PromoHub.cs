@@ -22,7 +22,7 @@ namespace RealPromo.ApiWeb.Models
             await Clients.Others.SendAsync("receberPromocao", promocao);
         }
 
-        public void ReceberPromoocao(string empresa, string chamada, string regras, string url)
+        public void ReceberPromocao(string empresa, string chamada, string regras, string url)
         {
 
         } 
