@@ -15,7 +15,47 @@ connection.on("cadastradoSucesso", function () {
 });
 
 connection.on("receberPromocao", function (promocao) {
+
+    var containerLogin = document.getElementById("container-login");
+    var containerPromo = document.createElement("div");
+    containerPromo.setAttribute("class", "container-promo")
+    var containerChamada = document.createElement("div");
+    containerChamada.setAttribute("class", "container-chamada");
+    var h1Titulo = document.createElement("h1");
+    h1Titulo.innerText = promocao.nomeEmpresa;
+    var p1 = document.createElement("p");
+    p1.innerText = promocao.chamada.toString();
+    var p2 = document.createElement("p");
+    p2.innerText = promocao.regras;
+    var containerBotao = document.createElement("div");
+    containerBotao.setAttribute("class", "container-botao");
+    var link = document.createElement("a");
+    link.setAttribute("href", promocao.url);
+    link.innerText = 'Pegar';
     console.info(promocao);
+
+    containerChamada.appendChild(h1Titulo);
+    containerChamada.appendChild(p1);
+    containerChamada.appendChild(p2);
+
+    containerBotao.appendChild(link);
+
+    containerPromo.appendChild(containerChamada);
+    containerPromo.appendChild(containerBotao);
+
+    containerLogin.appendChild(containerPromo);
+    /*
+    <div class="container-promo">
+        <div class="container-chamada">
+            <h1>Carrefour</h1>
+            <p>TV LG 40" - R$ 999,99</p>
+            <p>Somente 20 unidades</p>
+        </div>
+        <div class="container-botao">
+            Pegar
+        </div>
+    </div>
+    */
 });
 
 var btnCadastrar = document.getElementById('BtnCadastrar');
