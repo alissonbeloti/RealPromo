@@ -1,13 +1,9 @@
 ﻿//<reference path="../lib/signalr/dist/browser/signalr.js" />
 var connection = new signalR.HubConnectionBuilder().withUrl("/PromoHub").build();
 
-connection.start()
-    .then(function () {
-        console.info("Conectado!");
-    })
-    .catch(function (err) {
-        console.error(err.toString());
-    });
+start();
+
+connection.onclosed(async () => { await start(); });
 
 connection.on("cadastradoSucesso", function () {
     var mensagem = document.getElementById('mensagem');
@@ -81,4 +77,15 @@ if (btnCadastrar) {
             console.error(err.toString());
         });;
     });
+}
+
+function start() {
+    connection.start()
+        .then(function () {
+            console.info("Conectado!");
+        })
+        .catch(function (err) {
+            console.error(err.toString());
+            setTimeout(() => start(), 5000);
+        });
 }

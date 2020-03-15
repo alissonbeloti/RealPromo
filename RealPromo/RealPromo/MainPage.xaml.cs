@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RealPromo.Models;
+using RealPromo.Services;
 using Xamarin.Forms;
 
 namespace RealPromo
@@ -15,16 +16,17 @@ namespace RealPromo
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        ObservableCollection<Promocao> promocoes;
+        ObservableCollection<Promocao> promocoes = new ObservableCollection<Promocao>();
         public MainPage()
         {
             InitializeComponent();
-            ListaPromocoes();
+            //ListaPromocoes();
+            new RealPromoSignalR(promocoes);
             ListViewPromocao.ItemsSource = promocoes;
-            Device.StartTimer(TimeSpan.FromSeconds(15), () => {
-                promocoes.Add(new Promocao { Chamada = "simulando observable", NomeEmpresa = "Observador", Regras = "2 unidades", Url = "http://www.carrefour.com.br" });
-                return true;
-            });
+            //Device.StartTimer(TimeSpan.FromSeconds(15), () => {
+            //    promocoes.Add(new Promocao { Chamada = "simulando observable", NomeEmpresa = "Observador", Regras = "2 unidades", Url = "http://www.carrefour.com.br" });
+            //    return true;
+            //});
         }
         private void ListaPromocoes()
         {
